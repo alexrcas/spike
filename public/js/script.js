@@ -42,7 +42,7 @@ let PLAYER_MARKER = null;
 let SOCKET = io();
 
 SOCKET.on('position', data => {
-    L.marker([position.coords.latitude, position.coords.longitude], {title: data.name});
+    L.marker([data.latitude, data.longitude], {title: data.name});
 })
 
 initializeMap(MAP);
