@@ -1,12 +1,17 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const http = require('http');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const { Server } = require("socket.io");
+
 
 var indexRouter = require('./routes/index');
 
 var app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,5 +40,21 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log('listening on: ' + PORT);
+});
+
+io.on('connection', socket => {
+
+  console.log('a user connected');
+  socket.on('position', msg => {
+    console.log(msg)
+    socket.broadcast.emit('position', msg);
+  });
+
+});
+
 
 module.exports = app;

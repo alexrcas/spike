@@ -1,7 +1,11 @@
 <div class="container">
 
     <div class="row mt-1 mb-2">
-      <h2> <%= title %> </h2>
+      <div class="d-flex flex-row">
+        <input id="playerName" type="text" placeholder="Nombre del jugador">
+        <button onclick="start(this)" class="btn btn-primary">Guardar y comenzar</button>
+      </div>
+
     </div>
 
     <div id="map"></div>
