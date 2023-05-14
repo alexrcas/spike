@@ -14,7 +14,7 @@ const updatePosition = position => {
     if (PLAYER_MARKER) {
         MAP.removeLayer(PLAYER_MARKER)
     }
-    PLAYER_MARKER = L.marker([position.coords.latitude, position.coords.longitude]);
+    PLAYER_MARKER = L.marker([position.coords.latitude, position.coords.longitude], {title: 'texto'});
     MAP.addLayer(PLAYER_MARKER);
 
     if (!SEND_TO_SERVER) {
@@ -42,8 +42,7 @@ let PLAYER_MARKER = null;
 let SOCKET = io();
 
 SOCKET.on('position', data => {
-
-    console.log('data', data)
+    L.marker([position.coords.latitude, position.coords.longitude], {title: data.name});
 })
 
 initializeMap(MAP);
